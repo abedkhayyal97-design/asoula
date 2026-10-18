@@ -14,3 +14,5 @@
 #bbl .bc{display:block;margin-top:6px;color:var(--gd);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .jar,.lg,#bee svg,.fw{shape-rendering:geometricPrecision;text-rendering:geometricPrecision}.band{text-rendering:geometricPrecision}
 .hd .lg{width:auto;height:50px;display:block}.fi .lf{width:auto;height:34px;display:block}
+
+.hd picture,.fi picture{display:block;line-height:0}
