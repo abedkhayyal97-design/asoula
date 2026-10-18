@@ -16,7 +16,7 @@ let h=rd("src/original.html");
 h=h.replace(/<!-- This site is hosted on Netlify[\s\S]*?-->\s*/,"").replace(/\s*<script async src="\/\.netlify[^>]*><\/script>\s*$/,"\n");
 h=h.replace(/<\/html>\s*$/,"")+"</html>\n";
 // 1b) HD artwork (jar/bee/logo): same viewBoxes/composition/colours, far more detail (src/art.mjs)
-h=h.replace(/(<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>)[\s\S]*?(<\/defs><\/svg>)/,(m,a,b)=>a+ALL_DEFS().replace(/>\s*\n\s*</g,"><").replace(/\n/g,"")+b);
+h=h.replace(/(<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>)[\s\S]*?(<\/defs><\/svg>)/,(m,a,b)=>a+ALL_DEFS().replace("__LABEL_LOGO__","logo-label-440.webp").replace(/>\s*\n\s*</g,"><").replace(/\n/g,"")+b);
 // prerender both jars in the HTML (painted with first paint, no JS needed); the JS no longer injects them
 h=h.replace(/const J='[^\n]*';\n/,"").replace('document.querySelectorAll(".jar").forEach(s=>s.innerHTML=J);\n',"");
 h=h.replace(/(<svg class="jar" viewBox="0 0 200 260" role="img"[^>]*>)(<\/svg>)/,(m,a,b)=>a+J+b).replace(/(<svg class="jar" id="pjar"[^>]*>)(<\/svg>)/,(m,a,b)=>a+J+b);
@@ -56,7 +56,7 @@ h=h.replace(/<footer>[\s\S]*?<\/footer>/,ftr("",true));
 h=h.replace(/<dialog id="cr">[\s\S]*?<\/dialog>/,PG.dialog(S));
 // 2) fonts: replace Google Fonts with self-hosted subsets (same families/weights)
 h=h.replace(/<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">[\s\S]*?display=swap">\s*/,
- '<link rel="preload" as="image" type="image/webp" href="logo-dark-220.webp" imagesrcset="logo-dark-110.webp 1x, logo-dark-220.webp 2x, logo-dark-330.webp 3x" fetchpriority="high">\n<link rel="preload" href="fonts/IBMPlexSansArabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="fonts/MarkaziText-700-arabic.woff2" as="font" type="font/woff2" crossorigin>\n');
+ '<link rel="preload" as="image" type="image/webp" href="logo-label-440.webp">\n<link rel="preload" as="image" type="image/webp" href="logo-dark-220.webp" imagesrcset="logo-dark-110.webp 1x, logo-dark-220.webp 2x, logo-dark-330.webp 3x" fetchpriority="high">\n<link rel="preload" href="fonts/IBMPlexSansArabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="fonts/MarkaziText-700-arabic.woff2" as="font" type="font/woff2" crossorigin>\n');
 let CSS="";
 // 3) CSS: prepend font-faces, minify
 h=h.replace(/<style>([\s\S]*?)<\/style>/,(m,css)=>{css=rd("fonts.css")+"\n"+css+"\n"+rd("src/extra.css");if(esb)css=esb.transformSync(css,{loader:"css",minify:true}).code;CSS=css;return "<style>"+css+"</style>"});
@@ -118,6 +118,7 @@ function shell({title,desc,path,base,body,ld,ogAlt}){
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
 <link rel="preload" as="image" type="image/webp" href="${base}logo-dark-220.webp" imagesrcset="${base}logo-dark-110.webp 1x, ${base}logo-dark-220.webp 2x, ${base}logo-dark-330.webp 3x" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="${base}logo-label-440.webp">
 <link rel="preload" href="${base}fonts/IBMPlexSansArabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}fonts/MarkaziText-700-arabic.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website"><meta property="og:locale" content="ar_SY"><meta property="og:site_name" content="${esc(S.brand)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${S.siteUrl}og.jpg?v=${OGV}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(ogAlt||"شعار عسولة – عسل جبلي أصيل")}">
@@ -127,7 +128,7 @@ function shell({title,desc,path,base,body,ld,ogAlt}){
 <style>${css}</style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${DEFS().replace(/>\s*\n\s*</g,"><").replace(/\n/g,"")}</defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${DEFS().replace("__LABEL_LOGO__",base+"logo-label-440.webp").replace(/>\s*\n\s*</g,"><").replace(/\n/g,"")}</defs></svg>
 <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
 ${hdr(base,false)}
 ${body}

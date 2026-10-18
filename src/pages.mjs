@@ -46,7 +46,7 @@ const avail=p=>p.availability?`<span class="av">${esc(p.availability)}</span>`:"
 
 export function productCards(S,P,JAR,base){
  return `<ul class="pg" aria-label="أنواع العسل">${P.map(p=>`<li><article class="pc" style="--c:${p.color}">
-  <svg class="jar" viewBox="0 0 200 260" aria-hidden="true">${JAR}</svg>
+  <svg class="jar" viewBox="0 0 200 260" aria-hidden="true" style="--c:${p.color}">${JAR}</svg>
   <h3><a href="${base}honey/${p.slug}/">${esc(hn(p))}</a></h3>
   <p class="mu pd">${esc(p.desc)}</p>
   <div class="ch"><b>${esc(p.taste)}</b><b>القطاف: ${esc(p.season)}</b></div>
