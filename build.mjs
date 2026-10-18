@@ -27,7 +27,9 @@ h=h.replace(/(<\/div><\/section>\n\n<section class="sec" style="background:var\(
 h=h.replace(/(<\/ul>\n<\/div><\/section>\n\n<section class="sec"><div class="w"><p class="bx">)/,(m,a)=>"</ul>\n</div>"+FLW([["fa","left:3%;--w:36px;--b:4px;--d:-2.5s"],["fb","right:3%;--w:36px;--b:4px;--d:-3.5s"]])+"</section>\n\n<section class=\"sec\"><div class=\"w\"><p class=\"bx\">");
 h=h.replace(/(<small>أو راسلنا على الرقم <span>\+963 997 883 618<\/span><\/small>)(<\/section>)/,(m,a,b)=>a+FLW([["fc","left:4%;--w:56px;--b:0;--d:-1s"],["fa","left:12%;--w:40px;--b:0;--d:-2s"],["fb","right:5%;--w:56px;--b:0;--d:-3s"]])+b);
 
-h=h.replace(/<svg class="lg"[\s\S]*?<\/svg>/,()=>LOGO);
+// brand logo (traced vector from the supplied brand image) replaces the old mark + wordmark in header and footer
+h=h.replace(/(<a class="bd" href="#top") aria-label="[^"]*">\s*<svg class="lg"[\s\S]*?<\/svg>عسولة<\/a>/,(m,a)=>a+'><img class="lg" src="logo-dark.svg" width="112" height="50" alt="عسولة – عسل جبلي (الصفحة الرئيسية)" decoding="async" fetchpriority="high"></a>');
+h=h.replace('<span class="bd">عسولة</span>','<span class="bd"><img class="lf" src="logo-dark.svg" width="76" height="34" alt="شعار عسولة: اسم عسولة بالخط العربي مع نحلة وقطرة عسل" loading="lazy" decoding="async"></span>');
 // 2) fonts: replace Google Fonts with self-hosted subsets (same families/weights)
 h=h.replace(/<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">[\s\S]*?display=swap">\s*/,
  '<link rel="preload" href="fonts/IBMPlexSansArabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>\n<link rel="preload" href="fonts/MarkaziText-700-arabic.woff2" as="font" type="font/woff2" crossorigin>\n');
