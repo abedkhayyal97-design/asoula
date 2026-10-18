@@ -1,0 +1,15 @@
+/* additions (do not change existing look): interactive bee, speech bubble, wildflowers */
+.sec,.cta{position:relative}
+.fw{position:absolute;bottom:var(--b,0);width:var(--w,44px);height:auto;aspect-ratio:60/84;pointer-events:none;z-index:1;overflow:visible;transform-origin:50% 100%;animation:sw 5.5s ease-in-out var(--d,0s) infinite alternate}
+@keyframes sw{from{transform:rotate(-2.2deg)}to{transform:rotate(2.2deg)}}
+#bee{pointer-events:auto;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent;border-radius:50%}
+#bee:after{content:"";position:absolute;inset:-12px}
+#bee:focus-visible{outline:2px solid #E6CF93;outline-offset:6px;box-shadow:0 0 0 8px #1B241A99}
+#bee.pr .wg{animation-duration:1.5s}
+#bee.ct{cursor:grabbing}#bee.ct .wg{animation-duration:.04s}
+#bbl{position:fixed;top:0;left:0;z-index:45;box-sizing:border-box;width:max-content;max-width:min(272px,calc(100vw - 16px));padding:11px 16px;border-radius:20px;background:var(--pp);color:var(--ink);border:1.5px solid var(--gd);box-shadow:0 14px 30px -14px #0009;font:600 .95rem/1.75 var(--fb);text-align:center;direction:rtl;opacity:0;pointer-events:none;transition:opacity .25s}
+#bbl.on{opacity:1;pointer-events:auto}
+#bbl:after{content:"";position:absolute;left:var(--tx,50%);bottom:-7.5px;width:12px;height:12px;background:var(--pp);border:solid var(--gd);border-width:0 1.5px 1.5px 0;transform:translateX(-50%) rotate(45deg)}
+#bbl.bl:after{bottom:auto;top:-7.5px;border-width:1.5px 0 0 1.5px}
+#bbl .bc{display:block;margin-top:6px;color:var(--gd);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.jar,.lg,#bee svg,.fw{shape-rendering:geometricPrecision;text-rendering:geometricPrecision}.band{text-rendering:geometricPrecision}

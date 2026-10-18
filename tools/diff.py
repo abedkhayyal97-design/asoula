@@ -1,9 +1,16 @@
 import glob,os,sys
 from PIL import Image,ImageChops
 D='/workspace/asoula/screenshots/'
+import json
+from PIL import ImageDraw
 rows=[]
 for o in sorted(glob.glob(D+'cmp-orig-*.png')):
     f=os.path.basename(o)[9:-4];n=D+'cmp-new-'+f+'.png';a=Image.open(o).convert('RGB');b=Image.open(n).convert('RGB')
+    try:M=json.load(open(f'/tmp/mask-{f}.json'))
+    except Exception:M=[]
+    for im in (a,b):
+        dr=ImageDraw.Draw(im)
+        for r in M:dr.rectangle(r,fill=(255,0,255))
     if a.size!=b.size:
         rows.append((f,'SIZE %s vs %s'%(a.size,b.size)))
         m=(max(a.size[0],b.size[0]),max(a.size[1],b.size[1]));A=Image.new('RGB',m,(255,0,255));B=Image.new('RGB',m,(255,0,255));A.paste(a);B.paste(b);a,b=A,B
