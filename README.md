@@ -1,19 +1,14 @@
-# عسولة — Asoula (mountain honey)
+# عسولة — Asoula
 
-Static Arabic (RTL) website. No framework, no runtime JavaScript. Content lives in JSON; `node build.mjs` generates `docs/` (the published site).
+Static site that is a pixel-identical copy of the original (https://aasolabrand1.netlify.app/) with invisible improvements only.
 
-## Edit content
-- `data/products.json` — honey types (name, colour, description, taste, season, benefits…). Optional per product:
-  `"price": "…"`, `"weights": ["500 غ", "1 كغ"]`, `"photo": {"src":"images/x.webp","w":1200,"h":900,"alt":"…"}` (put the image in `docs/images/`). Empty = not shown (nothing is invented).
-- `data/site.json` — texts, WhatsApp number (`whatsapp`, digits only with country code), copyright holder, `siteUrl`.
-- Then: `node build.mjs` (Node 18+) and commit/push. GitHub Pages serves `/docs` from `main`.
+- `src/original.html` — original HTML/CSS/JS, the base (unchanged design and behaviour).
+- `data/products.json` — the 4 honey types (name, colour, taste, season, benefits…). `data/site.json` — brand, WhatsApp number, copyright holder, site URL.
+- `fonts.css` + `docs/fonts/` — self-hosted woff2 subsets (Markazi Text 700, IBM Plex Sans Arabic 400/600).
+- `build.mjs` — `node build.mjs` writes `docs/` (minify with esbuild if installed, SEO meta/OG/JSON-LD, sitemap, robots, manifest, prerendered first tab, static WhatsApp links, a11y attributes).
+- `docs/` — what GitHub Pages serves (main branch, /docs).
+- `tools/compare.js`, `tools/diff.py`, `tools/behave.js` — visual/behaviour comparison against the original.
 
-## Custom domain (e.g. asoula.com)
-1. Buy the domain (any registrar).
-2. GitHub repo → Settings → Pages → *Custom domain* → enter `asoula.com` (or `www.asoula.com`) → Save. Tick *Enforce HTTPS* once the certificate is issued (can take up to ~1 h).
-3. At the registrar's DNS:
-   - apex `asoula.com`: four `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (optional `AAAA`: `2606:50c0:8000::153`, `…8001::153`, `…8002::153`, `…8003::153`)
-   - `www`: `CNAME` → `abedkhayyal97-design.github.io`
-4. Rebuild with the new address so canonical/OG/sitemap point to it: `SITE_URL=https://asoula.com/ node build.mjs` (also edit `siteUrl` in `data/site.json`), commit, push.
+Edit text/numbers in `data/*.json`, run `SITE_URL=https://your-domain/ node build.mjs`, commit, push.
 
-Moving to Cloudflare Pages later: `docs/` is the output directory, no build command needed.
+Custom domain: add a `docs/CNAME` file with the domain; DNS A records 185.199.108.153 / .109.153 / .110.153 / .111.153, `www` CNAME → abedkhayyal97-design.github.io; rebuild with `SITE_URL`.
