@@ -44,12 +44,6 @@ icon(512,0.60).save(f'{D}/icon-maskable-512.png',optimize=True)
 icon(180,0.84).convert('RGB').save(f'{D}/apple-touch-icon.png',optimize=True) if False else None
 a=icon(180,0.84);flat=Image.new('RGB',a.size,GREEN);flat.paste(a,mask=a.split()[3]);flat.save(f'{D}/apple-touch-icon.png',optimize=True)
 # icons with transparent corners from square() -> flatten the full-bleed ones (radius 0 -> already opaque)
-# ---- OG 1200x630: tagline logo (original colours) on the brand cream with a soft vignette
-W,H=1200,630
-yy,xx=np.mgrid[0:H,0:W];vig=1-0.07*(((xx-W/2)/(W/2))**2+((yy-H/2)/(H/2))**2)/2
-bg=np.stack([np.clip(c*vig,0,255) for c in CREAM],-1).astype(np.uint8)
-og=Image.fromarray(bg).convert('RGBA')
-l=fit(logo_tag,w=860,h=520);over(og,l,W/2,H/2+4)
-og.convert('RGB').save(f'{D}/og.jpg',quality=92,optimize=True,subsampling=0)
-og.convert('RGB').save(f'{V}/site/og-preview.png')
+# ---- OG image: NOT generated here any more (the logo pixels carry a misspelled tagline 'جبلى').
+# See brand-v3/og/og.html + render.js: tagline-less logo-mountain + real typeset tagline 'عسل جبلي أصيل' (Cairo 700).
 print('ok')

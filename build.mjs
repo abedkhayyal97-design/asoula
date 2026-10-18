@@ -1,11 +1,12 @@
 // Builds docs/index.html from src/original.html (the original design/CSS/JS, unchanged visually)
 // + invisible improvements: self-hosted fonts, minification, SEO meta/schema, prerendered honey explorer, a11y attributes.
 // Run: node build.mjs        (SITE_URL=https://yourdomain.com/ node build.mjs)
-import fs from "node:fs";import {createRequire} from "node:module";
+import fs from "node:fs";import crypto from "node:crypto";import {createRequire} from "node:module";
 const require=createRequire(import.meta.url);
 let esb=null;for(const p of ["esbuild","/tmp/pp/node_modules/esbuild"]){try{esb=require(p);break}catch{}}
 const rd=f=>fs.readFileSync(new URL(f,import.meta.url),"utf8");
 const S=JSON.parse(rd("data/site.json")),P=JSON.parse(rd(process.env.PRODUCTS_JSON||"data/products.json"));
+const OGV=crypto.createHash("md5").update(fs.readFileSync(new URL("docs/og.jpg",import.meta.url))).digest("hex").slice(0,8); // cache-bust for WhatsApp/Facebook previews
 if(process.env.SITE_URL)S.siteUrl=process.env.SITE_URL.replace(/\/?$/,"/");
 import {ALL_DEFS,DEFS,J,BEE,LOGO,flower} from "./src/art.mjs";
 import * as PG from "./src/pages.mjs";
@@ -88,8 +89,8 @@ const ld=[{"@context":"https://schema.org","@type":"Organization","name":S.brand
 {"@context":"https://schema.org","@type":"ItemList","name":"عسل جبلي بكافة أنواعه","itemListElement":P.map((p,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"Product","name":"عسل "+p.name,"url":S.siteUrl+"honey/"+p.slug+"/","description":p.desc+" الطعم: "+p.taste+". القطاف: "+p.season+".","brand":{"@type":"Brand","name":S.brand}}}))}];
 const head=`<meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${S.siteUrl}">
-<meta property="og:type" content="website"><meta property="og:locale" content="ar_SY"><meta property="og:site_name" content="${esc(S.brand)}"><meta property="og:title" content="${esc(S.title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${S.siteUrl}"><meta property="og:image" content="${S.siteUrl}og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="شعار عسولة – عسل جبلي أصيل">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(S.title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${S.siteUrl}og.jpg">
+<meta property="og:type" content="website"><meta property="og:locale" content="ar_SY"><meta property="og:site_name" content="${esc(S.brand)}"><meta property="og:title" content="${esc(S.title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${S.siteUrl}"><meta property="og:image" content="${S.siteUrl}og.jpg?v=${OGV}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="شعار عسولة – عسل جبلي أصيل">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(S.title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${S.siteUrl}og.jpg?v=${OGV}">
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 `;
@@ -119,8 +120,8 @@ function shell({title,desc,path,base,body,ld,ogAlt}){
 <link rel="preload" as="image" type="image/webp" href="${base}logo-dark-220.webp" imagesrcset="${base}logo-dark-110.webp 1x, ${base}logo-dark-220.webp 2x, ${base}logo-dark-330.webp 3x" fetchpriority="high">
 <link rel="preload" href="${base}fonts/IBMPlexSansArabic-400-arabic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}fonts/MarkaziText-700-arabic.woff2" as="font" type="font/woff2" crossorigin>
-<meta property="og:type" content="website"><meta property="og:locale" content="ar_SY"><meta property="og:site_name" content="${esc(S.brand)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${S.siteUrl}og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(ogAlt||"شعار عسولة – عسل جبلي أصيل")}">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${S.siteUrl}og.jpg">
+<meta property="og:type" content="website"><meta property="og:locale" content="ar_SY"><meta property="og:site_name" content="${esc(S.brand)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${S.siteUrl}og.jpg?v=${OGV}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(ogAlt||"شعار عسولة – عسل جبلي أصيل")}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${S.siteUrl}og.jpg?v=${OGV}">
 <link rel="icon" href="${base}favicon.svg" type="image/svg+xml"><link rel="icon" href="${base}favicon.ico" sizes="any"><link rel="icon" href="${base}favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="${base}apple-touch-icon.png"><link rel="manifest" href="${base}site.webmanifest">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <style>${css}</style>
