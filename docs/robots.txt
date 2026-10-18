@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abedkhayyal97-design.github.io/asoula/sitemap.xml

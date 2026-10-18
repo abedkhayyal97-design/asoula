@@ -1,0 +1,19 @@
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="sh" x2="1"><stop stop-opacity=".35"/><stop offset=".45" stop-opacity="0"/><stop offset="1" stop-opacity=".3"/></linearGradient>
+<linearGradient id="gg" x2="1" y2="1"><stop stop-color="#F3E3B0"/><stop offset="1" stop-color="#CDA85A"/></linearGradient>
+<pattern id="bl" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 1H4M0 3H4" stroke="#6B4A26" stroke-opacity=".35" stroke-width=".8"/><path d="M1 0V4M3 0V4" stroke="#fff" stroke-opacity=".2" stroke-width=".8"/></pattern>
+<path id="wp" d="M0 30C100 0 200 0 300 30C400 60 500 60 600 30C700 0 800 0 900 30C1000 60 1100 60 1200 30V90H0Z"/>
+<path id="bp" d="M60 56H140C140 70 150 74 166 84C184 96 190 120 190 150V206C190 232 172 246 146 246H54C28 246 10 232 10 206V150C10 120 16 96 34 84C50 74 60 70 60 56Z"/>
+<path id="sk" d="M64 26Q100 17 136 26C140 44 154 54 158 70Q155 82 144 79Q133 84 122 79Q111 84 100 79Q89 84 78 79Q67 84 56 79Q45 82 42 70C46 54 60 44 64 26Z"/>
+<clipPath id="jc"><use href="#bp"/></clipPath>
+<g id="jb"><use href="#bp" fill="#fff" fill-opacity=".22" stroke="#B98A43" stroke-opacity=".5" stroke-width="2"/></g>
+<g id="jf"><g clip-path="url(#jc)"><rect y="50" width="200" height="210" fill="url(#sh)"/></g>
+<path d="M30 112C20 134 18 172 22 214" stroke="#fff" stroke-opacity=".5" stroke-width="7" stroke-linecap="round" fill="none"/>
+<path d="M172 120c6 18 8 38 6 56" stroke="#fff" stroke-opacity=".3" stroke-width="4" stroke-linecap="round" fill="none"/>
+<rect x="48" y="150" width="104" height="62" rx="18" fill="#F8F0D9" stroke="#D9BE7C"/>
+<text x="100" y="187" text-anchor="middle" font-size="32" font-weight="700" fill="#715035" style="font-family:'Canela Arabic','Markazi Text',serif">عسولة</text>
+<text x="100" y="205" text-anchor="middle" font-size="11" fill="#8A6B3A" style="font-family:'Dahab Arabic ITF','IBM Plex Sans Arabic',sans-serif">عسل جبلي</text>
+<use href="#sk" fill="#C9A56A" stroke="#6B4A26" stroke-opacity=".6"/><use href="#sk" fill="url(#bl)"/><use href="#sk" fill="url(#sh)"/>
+<path d="M52 57Q100 68 148 57" stroke="#6B4A26" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M52 57Q100 68 148 57" stroke="#C9A56A" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
+<path d="M148 57q14-12 16 0q-2 10-16 0M148 57q5 12 1 22M148 57q9 9 13 18" fill="none" stroke="#6B4A26" stroke-width="3" stroke-linecap="round"/></g>
+</defs></svg>
