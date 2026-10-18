@@ -1,0 +1,10 @@
+(()=>{const f=document.getElementById("po");if(!f)return;
+const q=document.getElementById("qn"),o=document.getElementById("ord"),pr=document.getElementById("pr");let wt="";
+const clamp=()=>Math.max(1,Math.min(99,parseInt(q.value,10)||1));
+const msg=()=>{let t="مرحباً عسولة، أرغب بطلب المنتج التالي:\nاسم المنتج: "+f.dataset.name;if(wt)t+="\nالوزن: "+wt;t+="\nالكمية: "+clamp()+"\nأرجو تأكيد السعر النهائي وتكلفة التوصيل.";return"https://wa.me/"+f.dataset.wa+"?text="+encodeURIComponent(t)};
+const up=()=>{o.href=msg()};
+document.getElementById("qm").addEventListener("click",()=>{q.value=Math.max(1,clamp()-1);up()});
+document.getElementById("qp").addEventListener("click",()=>{q.value=Math.min(99,clamp()+1);up()});
+q.addEventListener("input",up);q.addEventListener("change",()=>{q.value=clamp();up()});
+f.querySelectorAll('input[name="w"]').forEach(r=>r.addEventListener("change",()=>{wt=r.value;pr.textContent=r.dataset.price||pr.dataset.base;up()}));
+up()})();
